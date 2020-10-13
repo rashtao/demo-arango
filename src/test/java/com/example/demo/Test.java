@@ -5,6 +5,7 @@ import com.arangodb.springframework.core.ArangoOperations;
 import com.example.demo.model.DocumentModel;
 import com.example.demo.model.EdgeModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.arangodb.model.AqlQueryOptions;
 
 import java.util.UUID;
 
@@ -44,7 +45,7 @@ public class Test extends DemoApplicationTests {
         String query = "FOR docFrom IN documentModel\n" +
                 "For docTo,edge,edges IN 1..1 ANY docFrom edgeModel\n" +
                 "RETURN edge";
-        ArangoCursor<EdgeModel> edgeArangoCursor = arangoOperations.query(query, null, null, EdgeModel.class);
+        ArangoCursor<EdgeModel> edgeArangoCursor = arangoOperations.query(query, null, new AqlQueryOptions().ttl(3600), EdgeModel.class);
         int count = 0;
         while (edgeArangoCursor.hasNext()) {
             EdgeModel edge = edgeArangoCursor.next();
