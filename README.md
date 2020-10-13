@@ -1,3 +1,14 @@
+# docker start arangodb
+
+```bash
+docker run -e ARANGO_ROOT_PASSWORD=root123 -p 18529:8529 --name arango -d arangodb/arangodb:3.7.2
+```
+
+# run test
+
+run insert() first and then run queryEdge()
+
+```java
 package com.example.demo;
 
 import com.arangodb.ArangoCursor;
@@ -15,7 +26,7 @@ import java.util.UUID;
 public class Test extends DemoApplicationTests {
     @Autowired
     private ArangoOperations arangoOperations;
-    
+
     @org.junit.jupiter.api.Test
     public void insert() {
         for (int i = 0; i < 5000; i++) {
@@ -53,3 +64,5 @@ public class Test extends DemoApplicationTests {
         }
     }
 }
+```
+
